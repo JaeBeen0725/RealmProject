@@ -7,10 +7,15 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 class BookWarmTableView: UIViewController {
     
     let bookWarmApi = BookWarmAPIManager()
+    let bookWarmTableCell = BookWarmTableViewCell()
+    var tasks: Results<BookWarmRealm>!
+    
+    
     
     var bookWarmList: BookWarm = BookWarm(documents: [], meta: nil)
     
@@ -30,6 +35,7 @@ class BookWarmTableView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+//        tasks = realm.object(BookWarmRealm.self).sorted(byKeyPath: "bookWarmTitle", ascending: false)
         
         view.backgroundColor = .brown
         
@@ -41,8 +47,23 @@ class BookWarmTableView: UIViewController {
       
         configure()
         setconstraints()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
         
     }
+    
+    @objc func saveButtonTapped() {
+        
+        let realm = try! Realm()
+        
+        let task = BookWarmRealm(title: bookWarmTableCell.bookWarmtitle.text ?? "ㄹㄹ", author: bookWarmTableCell.bookWarmAuthor.text ?? "흠" //thumbnail: //bookWarmTableCell.bookWarmThumbNail.image
+        )
+        try! realm.write{
+            realm.add(task)
+            print("작동 되나연")
+        }
+        
+    }
+    
     
     func configure() {
         view.addSubview(searchBar)
@@ -126,21 +147,5 @@ extension BookWarmTableView: UISearchBarDelegate {
 
     }
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        guard let text = searchBar.text else { return }
-//        searchQuery(text: text)
-//    }
-//
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//
-//    }
-//
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = true
-//    }
-//
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = false
-//    }
     
 }
