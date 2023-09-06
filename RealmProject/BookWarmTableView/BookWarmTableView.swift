@@ -15,8 +15,8 @@ class BookWarmTableView: UIViewController {
     let bookWarmTableCell = BookWarmTableViewCell()
     var tasks: Results<BookWarmRealm>!
     
-    
-    
+    let realm = try! Realm()
+
     var bookWarmList: BookWarm = BookWarm(documents: [], meta: nil)
     
     let bookWarmtableView = {
@@ -35,7 +35,7 @@ class BookWarmTableView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-//        tasks = realm.object(BookWarmRealm.self).sorted(byKeyPath: "bookWarmTitle", ascending: false)
+       tasks = realm.objects(BookWarmRealm.self).sorted(byKeyPath: "title", ascending: false)
         
         view.backgroundColor = .brown
         
@@ -47,11 +47,11 @@ class BookWarmTableView: UIViewController {
       
         configure()
         setconstraints()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+       // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
         
     }
     
-    @objc func saveButtonTapped() {
+  func cellButtonTapped() {
         
         let realm = try! Realm()
         
@@ -131,6 +131,10 @@ extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITable
             }
         }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        cellButtonTapped()
+    }
+    
 }
 
 
@@ -139,7 +143,7 @@ extension BookWarmTableView: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         page = 1
         self.bookWarmList.documents.removeAll()
-    // bookWarmtableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+   
         guard let text = searchBar.text else { return }
         
         callBookWarmAPI(query: text, page: page)

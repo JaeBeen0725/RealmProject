@@ -80,12 +80,12 @@
 		6E4BD11A2AA7103300E6E49C /* RealmProject */ = {
 			isa = PBXGroup;
 			children = (
+				6E4BD15B2AA841CA00E6E49C /* DetailBookWarm */,
 				6E4BD1532AA765D000E6E49C /* Realm */,
 				6E4BD14C2AA7196E00E6E49C /* BookWarmTableView */,
 				6E4BD12F2AA710FF00E6E49C /* BookWarmAPI */,
 				6E4BD11B2AA7103300E6E49C /* AppDelegate.swift */,
 				6E4BD11D2AA7103300E6E49C /* SceneDelegate.swift */,
-				6E4BD11F2AA7103300E6E49C /* ViewController.swift */,
 				6E4BD1242AA7103400E6E49C /* Assets.xcassets */,
 				6E4BD1262AA7103400E6E49C /* LaunchScreen.storyboard */,
 				6E4BD1292AA7103400E6E49C /* Info.plist */,
@@ -120,6 +120,14 @@
 				6E4BD1542AA765EB00E6E49C /* BookWarmRealm.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		6E4BD15B2AA841CA00E6E49C /* DetailBookWarm */ = {
+			isa = PBXGroup;
+			children = (
+				6E4BD11F2AA7103300E6E49C /* ViewController.swift */,
+			);
+			path = DetailBookWarm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
