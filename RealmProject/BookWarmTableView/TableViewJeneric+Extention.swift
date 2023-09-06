@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension BookWarmTableViewCell {
+extension UITableViewCell {
     
     func cellLabel<T: UILabel>(view: T) {
         view.backgroundColor = .white

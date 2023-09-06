@@ -28,6 +28,8 @@
 		6E4BD15D2AA84C6300E6E49C /* SetMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BD15C2AA84C6300E6E49C /* SetMemoViewController.swift */; };
 		6E4BD1602AA8561E00E6E49C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6E4BD15F2AA8561E00E6E49C /* Kingfisher */; };
 		6E4BD1622AA86EA400E6E49C /* BookWarmRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BD1612AA86EA400E6E49C /* BookWarmRepositoryType.swift */; };
+		6E4BD1662AA8B2A200E6E49C /* MainPickedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BD1652AA8B2A200E6E49C /* MainPickedViewController.swift */; };
+		6E4BD1692AA8CDDA00E6E49C /* PickedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BD1682AA8CDDA00E6E49C /* PickedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		6E4BD1542AA765EB00E6E49C /* BookWarmRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookWarmRealm.swift; sourceTree = "<group>"; };
 		6E4BD15C2AA84C6300E6E49C /* SetMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMemoViewController.swift; sourceTree = "<group>"; };
 		6E4BD1612AA86EA400E6E49C /* BookWarmRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookWarmRepositoryType.swift; sourceTree = "<group>"; };
+		6E4BD1652AA8B2A200E6E49C /* MainPickedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPickedViewController.swift; sourceTree = "<group>"; };
+		6E4BD1682AA8CDDA00E6E49C /* PickedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 		6E4BD11A2AA7103300E6E49C /* RealmProject */ = {
 			isa = PBXGroup;
 			children = (
+				6E4BD1672AA8B2AE00E6E49C /* PickedViewController */,
 				6E4BD15B2AA841CA00E6E49C /* DetailBookWarm */,
 				6E4BD1532AA765D000E6E49C /* Realm */,
 				6E4BD14C2AA7196E00E6E49C /* BookWarmTableView */,
@@ -136,6 +141,15 @@
 				6E4BD15C2AA84C6300E6E49C /* SetMemoViewController.swift */,
 			);
 			path = DetailBookWarm;
+			sourceTree = "<group>";
+		};
+		6E4BD1672AA8B2AE00E6E49C /* PickedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6E4BD1652AA8B2A200E6E49C /* MainPickedViewController.swift */,
+				6E4BD1682AA8CDDA00E6E49C /* PickedTableViewCell.swift */,
+			);
+			path = PickedViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,8 +243,10 @@
 				6E4BD1202AA7103300E6E49C /* DetailViewController.swift in Sources */,
 				6E4BD1502AA71BAA00E6E49C /* BookWarmTableViewCell.swift in Sources */,
 				6E4BD11C2AA7103300E6E49C /* AppDelegate.swift in Sources */,
+				6E4BD1692AA8CDDA00E6E49C /* PickedTableViewCell.swift in Sources */,
 				6E4BD1312AA7112600E6E49C /* BookWarmAPIManager.swift in Sources */,
 				6E4BD15D2AA84C6300E6E49C /* SetMemoViewController.swift in Sources */,
+				6E4BD1662AA8B2A200E6E49C /* MainPickedViewController.swift in Sources */,
 				6E4BD14B2AA7152000E6E49C /* APIKey.swift in Sources */,
 				6E4BD1552AA765EB00E6E49C /* BookWarmRealm.swift in Sources */,
 				6E4BD11E2AA7103300E6E49C /* SceneDelegate.swift in Sources */,

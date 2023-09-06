@@ -15,34 +15,44 @@ class DetailViewController: UIViewController{
     let detailLabel = UILabel()
     let realm = try! Realm()
     var _id: ObjectId?
-    
+   
     
     var tasks: Results<BookWarmRealm>!
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print("detailView", #function)
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "메모", style: .plain, target: self, action: #selector(setmemoButtonClicked))
-        
+        print("디테일", _id!)
         configure()
         setConstraints()
-        
-        tasks = realm.objects(BookWarmRealm.self).where({ bookwarm in
-            bookwarm._id == _id!
-        })
-        print(tasks!)
         showDetailThumbnail()
-        let url = URL(string: tasks.first!.thumbnail ?? "")
-        detailThumbnail.kf.setImage(with: url)
        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        memo()
+    }
+    
+    func memo() {
+        tasks = realm.objects(BookWarmRealm.self).where({ bookMemo in
+            bookMemo._id == _id!
+        })
+        detailLabel.text = "\(tasks.first?.memo ?? "")"
+        print(detailLabel.text!)
+      
     }
     
     func showDetailThumbnail() {
         
-//        let url = URL()
-//
-//        detailThumbnail
+        tasks = realm.objects(BookWarmRealm.self).where({ bookwarm in
+            bookwarm._id == _id!
+        })
+        let url = URL(string: tasks.first!.thumbnail ?? "")
+        detailThumbnail.kf.setImage(with: url)
+
     }
     
     @objc func setmemoButtonClicked() {

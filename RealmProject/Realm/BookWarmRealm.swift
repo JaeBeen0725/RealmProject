@@ -14,15 +14,16 @@ class BookWarmRealm : Object {
     @Persisted var title: String
     @Persisted var author: String
     @Persisted var thumbnail: String?
+    @Persisted var memo: String
     
-    convenience init(title: String, author: String, thumbnail: String?) {
+    convenience init(title: String, author: String, thumbnail: String?, memo: String) {
         self.init()
         
         self.title = title
         self.author = author
         self.thumbnail = thumbnail
+        self.memo = memo
     }
 }
-
 
 
