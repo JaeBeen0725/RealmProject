@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-
+/*
 class SetMemoViewController: UIViewController {
     
     var data: BookWarmRealm?
@@ -98,3 +98,4 @@ class SetMemoViewController: UIViewController {
 //    
     
 }
+*/

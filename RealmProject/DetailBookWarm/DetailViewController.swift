@@ -12,10 +12,10 @@ import Kingfisher
 class DetailViewController: UIViewController{
 
     let detailThumbnail = UIImageView()
-    let detailLabel = UILabel()
+    let detailTextField = UITextField()
     let realm = try! Realm()
     var _id: ObjectId?
-   
+    var data: BookWarmRealm?
     
     var tasks: Results<BookWarmRealm>!
  
@@ -23,27 +23,28 @@ class DetailViewController: UIViewController{
         super.viewDidLoad()
 //        print("detailView", #function)
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "메모", style: .plain, target: self, action: #selector(setmemoButtonClicked))
-        print("디테일", _id!)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(setmemoButtonClicked))
+     
         configure()
         setConstraints()
         showDetailThumbnail()
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        memo()
+        //memo()
     }
     
-    func memo() {
-        tasks = realm.objects(BookWarmRealm.self).where({ bookMemo in
-            bookMemo._id == _id!
-        })
-        detailLabel.text = "\(tasks.first?.memo ?? "")"
-        print(detailLabel.text!)
-      
-    }
+//    func memo() {
+//        tasks = realm.objects(BookWarmRealm.self).where({ bookMemo in
+//            bookMemo._id == _id!
+//        })
+//        detailLabel.text = "\(tasks.first?.memo ?? "")"
+//        print(detailLabel.text!)
+//
+//    }
     
     func showDetailThumbnail() {
         
@@ -56,17 +57,19 @@ class DetailViewController: UIViewController{
     }
     
     @objc func setmemoButtonClicked() {
-        let vc = SetMemoViewController()
         
-       
+        guard let data = data else {return}
+      updateItem(id: data._id, title: data.title, author: data.author, thumbnail: data.thumbnail ?? "", memo: detailTextField.text ?? "")
         
-        navigationController?.pushViewController(vc, animated: true)
+     dismiss(animated: true)
+        
+        
         
     }
 
     func configure() {
         view.addSubview(detailThumbnail)
-        view.addSubview(detailLabel)
+        view.addSubview(detailTextField)
         
     }
     
@@ -80,15 +83,23 @@ class DetailViewController: UIViewController{
             make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        detailLabel.backgroundColor = .brown
-        detailLabel.snp.makeConstraints { make in
+        detailTextField.backgroundColor = .brown
+        detailTextField.snp.makeConstraints { make in
             make.center.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
             make.height.equalTo(40)
         }
+            
+        }
+    func updateItem(id: ObjectId, title: String, author: String, thumbnail: String, memo: String) {
         
-        
-        
+        do {
+            try realm.write {
+                realm.create(BookWarmRealm.self, value: ["_id": id, "title": title, "author": author, "thumbnail": thumbnail, "memo": memo ], update: .modified)
+            }
+        } catch {
+            print("")
+        }
         
     }
     

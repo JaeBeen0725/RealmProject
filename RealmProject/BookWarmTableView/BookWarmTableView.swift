@@ -51,7 +51,12 @@ class BookWarmTableView: UIViewController {
         configure()
         setconstraints()
        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "빽", style: .plain, target: self, action: #selector(backPickedVCButtonTapped))
         
+    }
+    
+    @objc func backPickedVCButtonTapped() {
+        dismiss(animated: true)
     }
     
     
@@ -139,6 +144,9 @@ extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITable
         }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //얼럿띄어서 저장할건지 물어봐
+        
         let book = bookWarmList.documents[indexPath.item]
       //  let realm = try! Realm()
         let task = BookWarmRealm(title: book.title, author: book.authors.first ?? "", thumbnail: book.thumbnail, memo: "")
@@ -146,12 +154,9 @@ extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITable
             realm.add(task)
             //print("작동 되나연")
         }
-        let vc = DetailViewController()
-        vc._id = task._id
+      
         
-       let nav = UINavigationController(rootViewController: vc)
-        
-        present(nav, animated: true)
+   
     }
     
 }
