@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import Kingfisher
 
 class BookWarmTableView: UIViewController {
     
@@ -16,7 +17,9 @@ class BookWarmTableView: UIViewController {
     var tasks: Results<BookWarmRealm>!
     
     let realm = try! Realm()
-
+    
+    var fullURL: String?
+    
     var bookWarmList: BookWarm = BookWarm(documents: [], meta: nil)
     
     let bookWarmtableView = {
@@ -34,7 +37,7 @@ class BookWarmTableView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+
        tasks = realm.objects(BookWarmRealm.self).sorted(byKeyPath: "title", ascending: false)
         
         view.backgroundColor = .brown
@@ -47,22 +50,22 @@ class BookWarmTableView: UIViewController {
       
         configure()
         setconstraints()
-       // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+       
         
     }
     
-  func cellButtonTapped() {
-        
-        let realm = try! Realm()
-        
-        let task = BookWarmRealm(title: bookWarmTableCell.bookWarmtitle.text ?? "ㄹㄹ", author: bookWarmTableCell.bookWarmAuthor.text ?? "흠" //thumbnail: //bookWarmTableCell.bookWarmThumbNail.image
-        )
-        try! realm.write{
-            realm.add(task)
-            print("작동 되나연")
-        }
-        
-    }
+    
+    
+//    func cellButtonTapped(book: Document) {
+//
+//        let realm = try! Realm()
+//
+//        let task = BookWarmRealm(title: book.title, author: book.authors.first ?? "흠", thumbnail: book.thumbnail)
+//        try! realm.write{
+//            realm.add(task)
+//            print("작동 되나연")
+//        }
+//    }
     
     
     func configure() {
@@ -99,29 +102,33 @@ class BookWarmTableView: UIViewController {
             print("error")
         }
     }
+    
+
 }
 
 
 extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(bookWarmList.documents.count, "여기여기")
+        //print(bookWarmList.documents.count, "여기여기")
         return bookWarmList.documents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookWarmTableViewCell", for: indexPath) as? BookWarmTableViewCell else { return UITableViewCell() }
         let list = bookWarmList.documents[indexPath.item]
+        
+        let thumbnailURL = URL(string: list.thumbnail)
        
         cell.bookWarmtitle.text = list.title
         cell.bookWarmAuthor.text = list.authors.first
-       
+        cell.bookWarmThumbNail.kf.setImage(with: thumbnailURL)
         return cell
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
             for indexPath in indexPaths {
-                if bookWarmList.documents.count - 1 == indexPath.row && !isEnd //&& page < 15
+                if bookWarmList.documents.count - 1 == indexPath.row && !isEnd
                 {
                     page += 1
                     guard let text = searchBar.text else { return }
@@ -132,7 +139,18 @@ extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITable
         }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        cellButtonTapped()
+        let book = bookWarmList.documents[indexPath.item]
+      //  let realm = try! Realm()
+        let task = BookWarmRealm(title: book.title, author: book.authors.first ?? "흠", thumbnail: book.thumbnail)
+        try! realm.write{
+            realm.add(task)
+            print("작동 되나연")
+        }
+        let vc = DetailViewController()
+        vc._id = task._id
+       let nav = UINavigationController(rootViewController: vc)
+        
+        present(nav, animated: true)
     }
     
 }

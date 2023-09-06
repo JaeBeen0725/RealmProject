@@ -7,7 +7,10 @@
 
 import UIKit
 
+
 class BookWarmTableViewCell: UITableViewCell {
+    
+    var bookwarm: BookWarmRealm!
     
     let bookWarmtitle = UILabel()
     let bookWarmAuthor = UILabel()
