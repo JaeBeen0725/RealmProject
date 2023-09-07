@@ -23,6 +23,7 @@ class MainPickedViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkScemaVersion()
         view.backgroundColor = .white
         print("efwaeaf", tasks ?? "")
         pickedTableView.dataSource = self
@@ -44,7 +45,7 @@ class MainPickedViewController: UIViewController {
     
     func fetch() -> Results<BookWarmRealm> {
         
-        let data = realm.objects(BookWarmRealm.self).sorted(byKeyPath: "title", ascending: true)
+        let data = realm.objects(BookWarmRealm.self).sorted(byKeyPath: "booktitle", ascending: true)
         return data
     }
     
@@ -72,8 +73,20 @@ class MainPickedViewController: UIViewController {
     }
     
     
-    func removeCellDocument() {
-        //guard let documentDi
+//    func removeCellDocument() {
+//        //guard let documentDi
+//    }
+//
+    
+    func checkScemaVersion() {
+        
+        do {
+            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
+            print("스키마 몇버전이니?: \(version)이요!")
+        } catch {
+            print(error)
+        }
+        
     }
     
 }
@@ -90,7 +103,7 @@ extension MainPickedViewController: UITableViewDelegate, UITableViewDataSource {
         let data = tasks[indexPath.row]
         let thumbnailURL = URL(string: data.thumbnail ?? "")
         
-        cell.pickedbookWarmtitle.text = data.title
+        cell.pickedbookWarmtitle.text = data.booktitle
         cell.pickedbookWarmAuthor.text = data.author
         cell.pickedbookWarmThumbNail.kf.setImage(with: thumbnailURL)
         cell.pickedbookWarmMemoLabel.text =  data.memo

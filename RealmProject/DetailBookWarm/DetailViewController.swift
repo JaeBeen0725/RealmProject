@@ -59,7 +59,7 @@ class DetailViewController: UIViewController{
     @objc func setmemoButtonClicked() {
         
         guard let data = data else {return}
-      updateItem(id: data._id, title: data.title, author: data.author, thumbnail: data.thumbnail ?? "", memo: detailTextField.text ?? "")
+      updateItem(id: data._id, title: data.booktitle, author: data.author, thumbnail: data.thumbnail ?? "", memo: detailTextField.text ?? "")
         
      dismiss(animated: true)
         
@@ -95,7 +95,7 @@ class DetailViewController: UIViewController{
         
         do {
             try realm.write {
-                realm.create(BookWarmRealm.self, value: ["_id": id, "title": title, "author": author, "thumbnail": thumbnail, "memo": memo ], update: .modified)
+                realm.create(BookWarmRealm.self, value: ["_id": id, "booktitle": title, "author": author, "thumbnail": thumbnail, "memo": memo ], update: .modified)
             }
         } catch {
             print("")

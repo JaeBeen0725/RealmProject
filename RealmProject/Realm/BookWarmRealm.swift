@@ -11,15 +11,15 @@ import RealmSwift
 class BookWarmRealm : Object {
     
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var title: String
+    @Persisted var booktitle: String
     @Persisted var author: String
     @Persisted var thumbnail: String?
     @Persisted var memo: String
     
-    convenience init(title: String, author: String, thumbnail: String?, memo: String) {
+    convenience init(booktitle: String, author: String, thumbnail: String?, memo: String) {
         self.init()
         
-        self.title = title
+        self.booktitle = booktitle
         self.author = author
         self.thumbnail = thumbnail
         self.memo = memo

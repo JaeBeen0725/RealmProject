@@ -149,7 +149,7 @@ extension BookWarmTableView: UITableViewDelegate, UITableViewDataSource, UITable
         
         let book = bookWarmList.documents[indexPath.item]
       //  let realm = try! Realm()
-        let task = BookWarmRealm(title: book.title, author: book.authors.first ?? "", thumbnail: book.thumbnail, memo: "")
+        let task = BookWarmRealm(booktitle: book.title, author: book.authors.first ?? "", thumbnail: book.thumbnail, memo: "")
         try! realm.write{
             realm.add(task)
             //print("작동 되나연")
